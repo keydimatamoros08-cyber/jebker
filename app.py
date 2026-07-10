@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
-from ia.respuestas import responder
+def responder(mensaje):
+    return "Hola aoy jebker Aun estoy configurandome enqe te ayudo.
 import sqlite3
 
 
