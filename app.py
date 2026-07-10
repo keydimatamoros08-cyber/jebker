@@ -130,7 +130,7 @@ def entrar():
 @app.route("/inicio")
 def inicio():
 
-    return render_template("index.html")
+    return "<h1>Hola soy jebker</h1><p>ya estoy en linea!</p>"
 
 
 
