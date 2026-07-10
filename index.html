@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jebker IA</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="caja">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo Jebker">
+        </div>
+
+        <!-- TÍTULO -->
+        <h1>Bienvenido a <span>Jebker IA</span></h1>
+
+        <!-- SUBTÍTULO -->
+        <p class="sub">
+            Tu asistente de inteligencia artificial personal.
+        </p>
+
+        <!-- BOTÓN -->
+        <button onclick="window.location.href='/chat'">
+            Iniciar Chat
+        </button>
+
+    </div>
+
+</body>
+</html>

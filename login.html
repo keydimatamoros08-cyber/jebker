@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<title>Iniciar Sesión - Jebker IA</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.login{
+    width:350px;
+    background:rgba(17,24,39,.85);
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 0 25px #7c5cff;
+}
+
+.login img{
+    width:120px;
+    margin-bottom:15px;
+}
+
+.login h2{
+    margin-bottom:20px;
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+}
+
+a{
+    color:#00d4ff;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login">
+
+<img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo Jebker">
+<h2>Jebker IA</h2>
+
+<form action="/entrar" method="post">
+
+<input
+type="text"
+name="usuario"
+placeholder="Usuario"
+required>
+
+<input
+type="password"
+name="password"
+placeholder="Contraseña"
+required>
+
+<button type="submit">
+Entrar
+</button>
+
+</form>
+
+<br>
+
+¿No tienes cuenta?
+
+<br><br>
+
+<a href="/registro">
+Crear cuenta
+</a>
+
+</div>
+
+</body>
+</html>

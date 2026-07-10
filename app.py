@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect
-def responder(mensaje):
-    return "Hola, Soy jebker. Aun estoy configurandome. Enqe te ayudo?"
+from ia.respuestas import responder
 import sqlite3
 
 
@@ -130,7 +129,7 @@ def entrar():
 @app.route("/inicio")
 def inicio():
 
-    return "<h1>Hola soy jebker</h1><p>ya estoy en linea!</p>"
+    return render_template("index.html")
 
 
 

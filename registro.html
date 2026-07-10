@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<title>Registro - Jebker IA</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.registro{
+    width:350px;
+    background:rgba(17,24,39,.85);
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 0 25px #7c5cff;
+}
+
+.registro img{
+    width:120px;
+    margin-bottom:15px;
+}
+
+.registro h2{
+    margin-bottom:20px;
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    outline:none;
+}
+
+button{
+    width:90%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:linear-gradient(90deg,#7c5cff,#00d4ff);
+    color:white;
+    font-size:16px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="registro">
+
+<img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo">
+<h2>Crear Cuenta</h2>
+
+<form action="/registrar" method="post">
+
+<input
+type="text"
+name="nombre"
+placeholder="Nombre completo"
+required>
+
+<input
+type="text"
+name="usuario"
+placeholder="Usuario"
+required>
+
+<input
+type="password"
+name="password"
+placeholder="Contraseña"
+required>
+
+<button type="submit">
+Registrarse
+</button>
+
+</form>
+
+<br>
+
+<button type="button" onclick="window.location.href='/'">
+YA TENGO CUENTA
+</button>
+
+</div>
+
+</body>
+</html>

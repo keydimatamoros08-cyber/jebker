@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<title>Jebker IA</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+
+}
+
+
+
+.contenedor{
+
+    display:flex;
+    height:100vh;
+
+}
+
+
+
+/* BARRA LATERAL */
+
+.barraLateral{
+
+    width:260px;
+    background:#111827;
+    color:white;
+    padding:20px;
+    border-right:1px solid #7c5cff;
+
+}
+
+
+
+.barraLateral button{
+
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7c5cff,#00d4ff);
+    color:white;
+    cursor:pointer;
+    margin-bottom:15px;
+
+}
+
+
+
+.buscar{
+
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    margin-bottom:20px;
+
+}
+
+
+
+.barraLateral h3{
+
+    font-size:16px;
+
+}
+
+
+
+#historial div{
+
+    background:#1f2937;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+
+}
+
+
+
+/* CHAT */
+
+
+.chat{
+
+    flex:1;
+    height:100vh;
+    background:rgba(17,24,39,.8);
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+
+.titulo{
+
+    padding:20px;
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+    border-bottom:1px solid #7c5cff;
+    color:white;
+
+}
+
+
+
+#mensajes{
+
+    flex:1;
+    padding:20px;
+    overflow:auto;
+
+}
+
+
+
+.user,.bot{
+
+    padding:12px;
+    border-radius:15px;
+    margin:10px 0;
+    width:max-content;
+    max-width:70%;
+
+}
+
+
+
+.user{
+
+    background:#00d4ff;
+    margin-left:auto;
+
+}
+
+
+
+.bot{
+
+    background:#7c5cff;
+    color:white;
+
+}
+
+
+
+.hora{
+
+    font-size:12px;
+    opacity:.7;
+    margin-top:5px;
+
+}
+
+
+
+/* BARRA DE ESCRITURA */
+
+
+.abajo{
+
+    display:flex;
+    gap:10px;
+    padding:20px;
+    border-top:1px solid #7c5cff;
+    transition:.5s;
+
+}
+
+
+
+input{
+
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+
+}
+
+
+
+button{
+
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7c5cff,#00d4ff);
+    color:white;
+    cursor:pointer;
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="contenedor">
+
+
+
+<div class="barraLateral">
+
+
+<button onclick="nuevoChat()">
+
+➕ Nuevo Chat
+
+</button>
+
+
+
+<input class="buscar" placeholder="🔎 Buscar chat">
+
+
+
+<h3>
+Chats recientes
+</h3>
+
+
+
+<div id="historial">
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="chat">
+
+
+
+<div class="titulo">
+
+🤖 Jebker IA
+
+</div>
+
+
+
+
+
+<div id="mensajes">
+
+
+<div class="bot">
+
+Hola 👋 ¿En qué puedo ayudarte?
+
+<div class="hora" id="horaInicio"></div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="abajo" id="entrada">
+
+
+<input 
+id="texto"
+placeholder="Escribe aquí..."
+onkeydown="if(event.key=='Enter') enviar()">
+
+
+
+
+
+<button onclick="escucharVoz()">
+
+🎤
+
+</button>
+
+
+
+
+<button onclick="enviar()">
+
+Enviar
+
+</button>
+
+
+
+
+<button onclick="leerRespuesta()">
+
+🔊
+
+</button>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<script>
+    let ultimaRespuesta = "";
+
+
+// HORA INICIAL
+
+document.getElementById("horaInicio").innerHTML =
+new Date().toLocaleTimeString([],{
+    hour:'2-digit',
+    minute:'2-digit'
+});
+
+
+
+
+// ENVIAR MENSAJE
+
+function enviar(){
+
+
+let texto=document.getElementById("texto");
+
+
+if(texto.value=="") return;
+
+
+
+let chat=document.getElementById("mensajes");
+
+
+
+let hora=new Date().toLocaleTimeString([],{
+
+hour:'2-digit',
+minute:'2-digit'
+
+});
+
+
+
+chat.innerHTML += `
+
+<div class="user">
+
+${texto.value}
+
+<div class="hora">
+
+${hora}
+
+</div>
+
+</div>
+
+`;
+
+
+
+
+// GUARDAR EN HISTORIAL
+
+
+let historial=document.getElementById("historial");
+
+
+historial.innerHTML += `
+
+<div onclick="abrirChat(this)">
+
+${texto.value.substring(0,25)}
+
+</div>
+
+`;
+
+
+
+
+
+fetch("/mensaje",{
+
+
+method:"POST",
+
+
+headers:{
+
+"Content-Type":"application/x-www-form-urlencoded"
+
+},
+
+
+body:"mensaje="+encodeURIComponent(texto.value)
+
+
+})
+
+.then(r=>r.text())
+
+
+.then(res=>{
+
+
+ultimaRespuesta=res;
+
+
+
+let horaBot=new Date().toLocaleTimeString([],{
+
+hour:'2-digit',
+minute:'2-digit'
+
+});
+
+
+
+
+chat.innerHTML += `
+
+<div class="bot">
+
+${res}
+
+<div class="hora">
+
+${horaBot}
+
+</div>
+
+</div>
+
+`;
+
+
+
+chat.scrollTop=chat.scrollHeight;
+
+
+
+});
+
+
+
+texto.value="";
+
+texto.focus();
+
+
+}
+
+
+
+
+
+
+
+// NUEVO CHAT
+
+
+function nuevoChat(){
+
+
+document.getElementById("mensajes").innerHTML=`
+
+
+<div class="bot">
+
+Hola 👋 ¿En qué puedo ayudarte?
+
+<div class="hora">
+
+${new Date().toLocaleTimeString([],{
+
+hour:'2-digit',
+minute:'2-digit'
+
+})}
+
+</div>
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+
+
+
+
+// ABRIR CHAT DEL HISTORIAL
+
+
+function abrirChat(elemento){
+
+
+alert("Abriendo chat: "+elemento.innerHTML);
+
+
+}
+
+
+
+
+
+
+
+// MICROFONO
+
+
+function escucharVoz(){
+
+
+
+let reconocimiento = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+
+
+reconocimiento.lang="es-ES";
+
+
+reconocimiento.continuous=false;
+
+
+reconocimiento.interimResults=false;
+
+
+
+reconocimiento.start();
+
+
+
+
+
+reconocimiento.onresult=function(event){
+
+
+
+let texto=event.results[0][0].transcript;
+
+
+
+document.getElementById("texto").value=texto;
+
+
+
+};
+
+
+
+
+
+reconocimiento.onerror=function(event){
+
+
+alert("Error del micrófono: "+event.error);
+
+
+};
+
+
+
+}
+
+
+
+
+
+
+
+// LEER RESPUESTA
+
+
+function leerRespuesta(){
+
+
+
+if(ultimaRespuesta==""){
+
+
+alert("Todavía no hay respuesta para leer");
+
+
+return;
+
+
+}
+
+
+
+
+speechSynthesis.cancel();
+
+
+
+let voz=new SpeechSynthesisUtterance(ultimaRespuesta);
+
+voz.lang="es-ES";
+
+
+voz.rate=0.9;
+
+
+voz.pitch=0.8;
+
+
+
+speechSynthesis.speak(voz);
+
+
+
+}
+
+</script>
+
+
+</body>
+</html>

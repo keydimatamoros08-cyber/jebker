@@ -1,0 +1,289 @@
+/* 🌟 ESTILOS GENERALES Y CENTRADO TOTAL */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow: hidden;
+    background: #0b0f1a;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+/* 🌟 FONDO BRILLANTE FULL PANTALLA */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, #7c5cff55, transparent 45%),
+                radial-gradient(circle at 80% 30%, #00d4ff55, transparent 45%),
+                radial-gradient(circle at 50% 80%, #ff4fd855, transparent 50%);
+    animation: moverFondo 10s infinite alternate;
+    z-index: -1;
+    filter: blur(30px);
+    transform: scale(1.2);
+    backface-visibility: hidden;
+}
+
+
+@keyframes moverFondo {
+
+    0% {
+        transform: scale(1.2) translate(0px,0px);
+    }
+
+    100% {
+        transform: scale(1.4) translate(20px,-20px);
+    }
+
+}
+
+
+/* 🤖 LOGO ROBOT */
+.logo img {
+    width: 220px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    border: 3px solid rgb(118, 92, 250)0; /* Solo para probar */
+}
+
+/* 📝 TÍTULO */
+h1 {
+
+    font-size:36px;
+    margin:0;
+
+}
+
+
+h1 span {
+
+    color:#7c5cff;
+    text-shadow:0 0 10px #7c5cff;
+
+}
+
+
+/* 💬 SUBTÍTULO */
+.sub {
+
+    color:#bbb;
+    margin:10px 0 25px 0;
+
+}
+
+
+/* 🚀 BOTONES */
+button {
+
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7c5cff,#00d4ff);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s ease;
+    box-shadow:0 0 20px rgba(124,92,255,0.5);
+    outline:none;
+
+}
+
+
+button:hover {
+
+    transform:scale(1.05);
+    box-shadow:0 0 35px rgba(0,212,255,0.7);
+
+}
+
+
+/* ========================= */
+/* CHAT COMPLETO */
+/* ========================= */
+
+.contenedor {
+
+    display:flex;
+    width:100%;
+    height:100vh;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+}
+
+
+/* BARRA LATERAL */
+
+.barraLateral {
+
+    width:260px;
+    background:#111827;
+    color:white;
+    padding:20px;
+    border-right:1px solid #7c5cff;
+
+}
+
+
+.barraLateral button {
+
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7c5cff,#00d4ff);
+    color:white;
+    cursor:pointer;
+    margin-bottom:15px;
+
+}
+
+
+.buscar {
+
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    margin-bottom:20px;
+
+}
+
+
+.barraLateral h3 {
+
+    font-size:16px;
+
+}
+
+
+#historial div {
+
+    background:#1f2937;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+
+}
+
+
+
+/* CHAT */
+
+.chat {
+
+    flex:1;
+    height:100vh;
+    background:rgba(17,24,39,.8);
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+
+.titulo {
+
+    padding:20px;
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+    border-bottom:1px solid #7c5cff;
+    color:white;
+
+}
+
+
+
+#mensajes {
+
+    flex:1;
+    padding:20px;
+    overflow:auto;
+
+}
+
+
+
+.user,
+.bot {
+
+    padding:12px;
+    border-radius:15px;
+    margin:10px 0;
+    width:max-content;
+    max-width:70%;
+
+}
+
+
+.user {
+
+    background:#00d4ff;
+    margin-left:auto;
+
+}
+
+
+.bot {
+
+    background:#7c5cff;
+    color:white;
+
+}
+
+
+
+.hora {
+
+    font-size:12px;
+    opacity:.7;
+    margin-top:5px;
+
+}
+
+
+
+/* ESCRIBIR */
+
+.abajo {
+
+    display:flex;
+    gap:10px;
+    padding:20px;
+    border-top:1px solid #7c5cff;
+
+}
+
+
+
+input {
+
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+
+}
+.caja {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
