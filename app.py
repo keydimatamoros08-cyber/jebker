@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 def responder(mensaje):
-    return "Hola aoy jebker Aun estoy configurandome enqe te ayudo.
+    return "Hola, Soy jebker. Aun estoy configurandome. Enqe te ayudo?"
 import sqlite3
 
 
